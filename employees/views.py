@@ -5,8 +5,22 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404
 from .models import Employee
-from .serializers import EmployeeSerializer
+from .serializers import EmployeeSerializer,UserSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])  # Allow anyone to access this endpoint
+def signup(request):
+    if request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 # Custom pagination class
 class EmployeePagination(PageNumberPagination):
     page_size = 10
