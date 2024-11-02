@@ -8,8 +8,7 @@
 1. **Clone the Repository and setup virtual environment**
    ```bash
    git clone https://github.com/Saifalicoder/HabotConnect.git
-   cd yourrepository
-   cd yourproject
+   cd HabotConnect
    python -m venv venv
    venv\Scripts\activate
    ```
